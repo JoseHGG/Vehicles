@@ -9,8 +9,8 @@ using Vehicles.API.Data;
 namespace Vehicles.API.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20220328173438_AddTableVehicles")]
-    partial class AddTableVehicles
+    [Migration("20220329184512_AddTableProcedures")]
+    partial class AddTableProcedures
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -19,6 +19,29 @@ namespace Vehicles.API.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("ProductVersion", "5.0.15")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+            modelBuilder.Entity("Vehicles.API.Data.Entities.Procedure", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Description")
+                        .IsUnique();
+
+                    b.ToTable("Procedures");
+                });
 
             modelBuilder.Entity("Vehicles.API.Data.Entities.VehicleType", b =>
                 {
